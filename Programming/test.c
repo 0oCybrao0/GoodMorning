@@ -20,6 +20,7 @@ int shell_sort(int *A, int n) {
         span = span / 2;
     }
 }
+
 int main() {
     int count, i;
     scanf("%d", &count);
