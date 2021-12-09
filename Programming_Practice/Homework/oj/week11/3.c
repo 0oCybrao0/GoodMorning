@@ -30,10 +30,11 @@ int main() {
         puts("");
     }
 }
-
 int compare(const void *a, const void *b) {
-    if ((*(frequency *)a).times == (*(frequency *)b).times) {
-        return (*(frequency *)b).ascii - (*(frequency *)a).ascii;
+    frequency a_ = *(frequency*)a;
+    frequency b_ = *(frequency*)b;
+    if (a_.times == b_.times) {
+        return b_.ascii - a_.ascii;
     }
-    return (*(frequency *)a).times - (*(frequency *)b).times;
+    return a_.times - b_.times;
 }

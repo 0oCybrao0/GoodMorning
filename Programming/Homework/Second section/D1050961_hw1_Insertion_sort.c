@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int *insertion_sort(int *, int);
+int insertion_sort(int *, int);
 void print_array(int *, int);
 
 int main() {
@@ -17,7 +17,7 @@ int main() {
     print_array(array, array_size);
 }
 
-int *insertion_sort(int *array, int array_size) {
+int insertion_sort(int *array, int array_size) {
     for (int compare_index = 1; compare_index < array_size; compare_index++) {
         int key = array[compare_index];  // set key from first to last
         int compare_key;
@@ -26,7 +26,7 @@ int *insertion_sort(int *array, int array_size) {
         }
         array[compare_key + 1] = key;  // move key back
     }
-    return *array;
+    return array;
 }
 
 void print_array(int *array, int array_size) {  // print array

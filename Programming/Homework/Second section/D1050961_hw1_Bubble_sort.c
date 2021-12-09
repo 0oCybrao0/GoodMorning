@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int *bubble_sort(int *, int);
+int bubble_sort(int *, int);
 void swap(int *, int *);
 void print_array(int *, int);
 
@@ -18,7 +18,7 @@ int main() {
     print_array(array, array_size);
 }
 
-int *bubble_sort(int *array, int array_size) {
+int bubble_sort(int *array, int array_size) {
     for (int pass = 1; pass < array_size; pass++) {                                        // scan from first to last
         for (int compare_index = 0; compare_index < array_size - pass; compare_index++) {  // compare the two elements to see which one is greater
             if (array[compare_index] > array[compare_index + 1]) {
@@ -26,7 +26,7 @@ int *bubble_sort(int *array, int array_size) {
             }
         }
     }
-    return *array;
+    return array;
 }
 
 void swap(int *address_a, int *address_b) {  // swap two elements
