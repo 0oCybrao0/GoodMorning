@@ -19,6 +19,40 @@ int main(void) {
     printArray(arr, array_size);
 }
 
+void swap(int* address_a, int* address_b) {  // swap two elements
+    int temp = *address_a;
+    *address_a = *address_b;
+    *address_b = temp;
+}
+
+void quickSort(int* arr, int start, int end) {
+    if (start < end) {                           // if start == end, the sort ends
+        int pivot = partition(arr, start, end);  // find the pivot point
+
+        quickSort(arr, start, pivot - 1);  // sort the array on the left side of the pivot
+        quickSort(arr, pivot + 1, end);    // sort the array on the right side of the pivot
+    }
+}
+
+int partition(int* arr, int start, int end) {
+    int pivot = arr[end];        // set pivot as the end element
+    int left_index = start;  // locate the left_index
+
+    for (int compare_index = start; compare_index < end; compare_index++) {
+        if (arr[compare_index] < pivot) {
+            swap(&arr[left_index], &arr[compare_index]);  // move left if &arr[compare_index] is smaller than the pivot
+            left_index++;
+        }
+    }
+    swap(&arr[left_index], &arr[end]);  // left_index + 1 == the location of pivot, swap pivot with the element at left_index + 1
+    return left_index;                  // return the location of pivot
+}
+
+void printArray(int* array, int array_size) {  // print array
+    for (int i = 0; i < array_size; i++)
+        printf("%d%c", array[i], i == array_size - 1 ? '\n' : ' ');
+}
+
 /*
 void quickSort(int* num, int start, int end) {  // with one function
     if (start >= end)
@@ -39,37 +73,3 @@ void quickSort(int* num, int start, int end) {  // with one function
     quickSort(num, k + 1, end);
 }
 */
-
-void swap(int* address_a, int* address_b) {  // swap two elements
-    int temp = *address_a;
-    *address_a = *address_b;
-    *address_b = temp;
-}
-
-int partition(int* arr, int start, int end) {
-    int pivot = arr[end];        // set pivot as the end element
-    int left_index = start - 1;  // locate the left_index
-
-    for (int compare_index = start; compare_index < end; compare_index++) {
-        if (arr[compare_index] < pivot) {
-            left_index++;
-            swap(&arr[left_index], &arr[compare_index]);  // move left if &arr[compare_index] is smaller than the pivot
-        }
-    }
-    swap(&arr[left_index + 1], &arr[end]);  // left_index + 1 == the location of pivot, swap pivot with the element at left_index + 1
-    return left_index + 1;                  // return the location of pivot
-}
-
-void quickSort(int* arr, int start, int end) {
-    if (start < end) {                           // if start == end, the sort ends
-        int pivot = partition(arr, start, end);  // find the pivot point
-
-        quickSort(arr, start, pivot - 1);  // sort the array on the left side of the pivot
-        quickSort(arr, pivot + 1, end);    // sort the array on the right side of the pivot
-    }
-}
-
-void printArray(int* array, int array_size) {  // print array
-    for (int i = 0; i < array_size; i++)
-        printf("%d%c", array[i], i == array_size - 1 ? '\n' : ' ');
-}
