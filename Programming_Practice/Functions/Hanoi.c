@@ -3,6 +3,9 @@
 void hanoi(int, char, char, char);
 void swap(char, char);
 int count = 0;
+int A[] = {0};
+int B[] = {0};
+int C[] = {0};
 
 int main() {
     int n;
