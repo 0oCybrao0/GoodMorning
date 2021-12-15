@@ -15,7 +15,7 @@ int cola_counter(int cola) {
 
 int main() {
     int N;
-    while (scanf("%d", &N)) {
+    while (scanf("%d", &N) != EOF) {
         sum = N;  //設一開始的數量
         printf("%d\n", cola_counter(N));
     }
