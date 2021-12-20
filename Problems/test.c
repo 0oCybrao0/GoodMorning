@@ -1,41 +1,78 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct card {
-    char suits;
-    int num;
-} card;
-
-int compare(const void *, const void *);
+#include <time.h>
 
 int main() {
-    card remain[100];
-    int n = 0;
-    scanf("%d", &n);
-    getchar();
-    int i = 0;
-    for (i = 0; i < n - 1; i++) {
-        scanf("%c %d\n", &remain[i].suits, &remain[i].num);
+    char name[][10] = {
+        "Harvey",
+        "Kevin",
+        "Bam",
+        "Eugene",
+        "Win",
+        "Natty",
+        "Will",
+        "Tegan",
+        "Numpun",
+        "Anthony",
+        "Irene",
+        "Judy",
+        "Rebecca",
+        "Athena",
+        "Bob",
+        "Jamie",
+        "Ilsa",
+        "Ethan",
+        "Yang",
+        "Yvonne",
+        "Ryan",
+        "William",
+        "Mako",
+        "Akari",
+        "Mind",
+        "Clara",
+        "Vania",
+        "Rita",
+        "Kana",
+        "Masa",
+        "Stephanie",
+        "Rose",
+        "Julia",
+        "Ryan",
+        "Jess",
+        "Leo",
+        "Claire",
+        "Aries",
+        "Benson",
+        "Tim",
+        "Michael",
+        "Casper",
+        "Shihzo",
+        "Daniel",
+        "Avic",
+        "Nile",
+        "Plan",
+        "Alexander",
+        "Kai",
+        "David",
+        "Rimuru",
+        "Bryant",
+        "Fable",
+        "Natalie",
+    };
+    int random[54] = {0};
+    for (int i = 0; i < 54; i++) {
+        random[i] = i;
     }
-    scanf("%c %d", &remain[i].suits, &remain[i].num);
-    qsort(remain, n, sizeof(card), compare);
-    for (int i = 0; i < n; i++) {
-        printf("%c %d\n", remain[i].suits, remain[i].num);
+    srand(time(NULL));
+    for(int i = 0; i < 54; i++){
+        int i_rand = rand() % 60;
+        int temp = random[i];
+        random[i] = random[i_rand];
+        random[i_rand] = temp;
     }
-}
-
-int compare(const void *a_, const void *b_) {
-    card a = *(card *)a_;
-    card b = *(card *)b_;
-    if (a.num <= 2) {
-        a.num += 13;
+    for(int i = 0; i < 54; i++){
+        printf("%s", name[random[i]]);
+        while(getchar() != '\n');
     }
-    if (b.num <= 2) {
-        b.num += 13;
-    }
-    if (a.num == b.num) {
-        return b.suits - a.suits;
-    }
-    return a.num - b.num;
 }
