@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-int prime(int, int*, int);
-int create_prime(int*, int);
+int prime(int, int *, int);
+int create_prime(int *, int);
 int first_n = 0;
 
 int main() {
@@ -36,7 +36,7 @@ int prime(int n, int *prime_num, int index) {
                     return 0;
             }
         }
-        return 2;   
+        return 2;
     } else {
         prime_num[index + 1] = create_prime(prime_num, index);
         return prime(n, prime_num, index + 1);

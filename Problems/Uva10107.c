@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int compare(const void*, const void*);
+int compare(const void *, const void *);
 
 int main() {
     int n = 0;

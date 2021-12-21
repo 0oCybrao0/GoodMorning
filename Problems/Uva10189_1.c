@@ -17,7 +17,7 @@ int main() {
                 int mine_count = 0;
                 for (int k = i - 1; k <= i + 1; k++) {
                     for (int l = j - 1; l <= j + 1; l++) {
-                        if(map[k][l] == '*'){
+                        if (map[k][l] == '*') {
                             mine_count++;
                         }
                     }

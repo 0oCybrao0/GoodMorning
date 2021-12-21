@@ -10,13 +10,13 @@ int main() {
         int str_len = strlen(input);
         int yes_no = 1;
         int sum1 = 0, sum2 = 0;
-        for(int i = 0; i < str_len; i++){
-            if(input[i] == '(') sum1++;
-            if(input[i] == ')') sum1--;
-            if(input[i] == '[') sum2++;
-            if(input[i] == ']') sum2--;
+        for (int i = 0; i < str_len; i++) {
+            if (input[i] == '(') sum1++;
+            if (input[i] == ')') sum1--;
+            if (input[i] == '[') sum2++;
+            if (input[i] == ']') sum2--;
         }
-        if(sum1 != 0 || sum2 != 0){
+        if (sum1 != 0 || sum2 != 0) {
             printf("No\n");
             continue;
         }
@@ -32,8 +32,7 @@ int main() {
                     yes_no = 0;
                     break;
                 }
-            }
-            else if (input[i] == ']') {
+            } else if (input[i] == ']') {
                 if (input[i - 1] == '[') {
                     for (int j = i - 1; i < str_len - 2; i++) {
                         input[j] = input[j + 2];

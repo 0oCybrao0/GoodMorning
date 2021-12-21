@@ -9,7 +9,7 @@ int main() {
         char string[10] = {0};
         scanf("%s", string);
         for (int nums = 0; nums < 10; nums++) {
-            if(strlen(string) != strlen(num_dict[nums])){
+            if (strlen(string) != strlen(num_dict[nums])) {
                 continue;
             }
             int temp = 0;
