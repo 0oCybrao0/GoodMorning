@@ -18,6 +18,6 @@ int main() {
                 printf("%c", sent[i]);
             }
         }
-      	puts("");
+        puts("");
     }
 }
