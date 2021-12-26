@@ -1,5 +1,6 @@
 import pygame
 import sys
+
 pygame.init()
 screen = pygame.display.set_mode([640, 480])
 black = [0, 0, 0]
@@ -45,7 +46,7 @@ score = 0
 brick_array = []
 for i in range(1, 15):
     for j in range(1, 12):
-        brick1 = Brick(10 + 40*i, 10 + 25*j)
+        brick1 = Brick(10 + 40 * i, 10 + 25 * j)
         brick_array.append(brick1)
 
 # allows for holding of key
@@ -62,7 +63,7 @@ while running:
         if event.type == pygame.MOUSEMOTION:
             coordinates = pygame.mouse.get_pos()  # gives (x,y) coordinates
             # sets the paddle_x variable to the first item in coordinates
-            paddle_x = coordinates[0] - paddle_width/2
+            paddle_x = coordinates[0] - paddle_width / 2
             if paddle_x < 20:
                 paddle_x = 20
             if paddle_x > screen.get_width() - paddle_width - 20:
@@ -73,8 +74,8 @@ while running:
     # make the screen completely white
     screen.fill(black)
     # change speed when score become higher
-    ball_speed_x = ball_speed_x_init*(1 + score*0.01)
-    ball_speed_y = ball_speed_y_init*(1 + score*0.01)
+    ball_speed_x = ball_speed_x_init * (1 + score * 0.01)
+    ball_speed_y = ball_speed_y_init * (1 + score * 0.01)
     # move the ball
     ball_y = ball_y + ball_speed_y
     ball_x = ball_x + ball_speed_x
@@ -99,7 +100,8 @@ while running:
 
     # create imaginary rectangles around ball and paddle
     # circles are measured from the center, so have to subtract 1 radius from the x and y
-    ball_rect = pygame.Rect(ball_x - ball_radius, ball_y - ball_radius, ball_radius*2, ball_radius*2)
+    ball_rect = pygame.Rect(ball_x - ball_radius, ball_y - ball_radius,
+                            ball_radius * 2, ball_radius * 2)
     paddle_rect = pygame.Rect(paddle_x, paddle_y, paddle_width, paddle_height)
     # see if the rectangles overlap
     if ball_rect.colliderect(paddle_rect):
@@ -111,19 +113,21 @@ while running:
             score = score + 1
             brick_array.remove(brick)
             if ball_y > brick.y - 11.5 and ball_y < brick.y + 11.5:
-                ball_speed_x = - ball_speed_x
-                ball_speed_x_init = - ball_speed_x_init
+                ball_speed_x = -ball_speed_x
+                ball_speed_x_init = -ball_speed_x_init
             else:
-                ball_speed_y = - ball_speed_y
-                ball_speed_y_init = - ball_speed_y_init
+                ball_speed_y = -ball_speed_y
+                ball_speed_y_init = -ball_speed_y_init
 
     # draw everything on the screen
     score_label = myfont.render(str(score), 1, pygame.color.THECOLORS['white'])
     screen.blit(score_label, (5, 10))
     for brick in brick_array:
         screen.blit(brick.image, brick.rect)
-    pygame.draw.circle(screen, ball_color, [int(ball_x), int(ball_y)], ball_radius, 0)
-    pygame.draw.rect(screen, paddle_color, [paddle_x, paddle_y, paddle_width, paddle_height], 0)
+    pygame.draw.circle(screen, ball_color,
+                       [int(ball_x), int(ball_y)], ball_radius, 0)
+    pygame.draw.rect(screen, paddle_color,
+                     [paddle_x, paddle_y, paddle_width, paddle_height], 0)
     # update the entire display
     pygame.display.update()
 
