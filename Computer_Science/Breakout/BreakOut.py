@@ -1,5 +1,4 @@
 import pygame
-import sys
 
 pygame.init()
 screen = pygame.display.set_mode([640, 480])
@@ -100,8 +99,7 @@ while running:
 
     # create imaginary rectangles around ball and paddle
     # circles are measured from the center, so have to subtract 1 radius from the x and y
-    ball_rect = pygame.Rect(ball_x - ball_radius, ball_y - ball_radius,
-                            ball_radius * 2, ball_radius * 2)
+    ball_rect = pygame.Rect(ball_x - ball_radius, ball_y - ball_radius, ball_radius * 2, ball_radius * 2)
     paddle_rect = pygame.Rect(paddle_x, paddle_y, paddle_width, paddle_height)
     # see if the rectangles overlap
     if ball_rect.colliderect(paddle_rect):
@@ -124,10 +122,8 @@ while running:
     screen.blit(score_label, (5, 10))
     for brick in brick_array:
         screen.blit(brick.image, brick.rect)
-    pygame.draw.circle(screen, ball_color,
-                       [int(ball_x), int(ball_y)], ball_radius, 0)
-    pygame.draw.rect(screen, paddle_color,
-                     [paddle_x, paddle_y, paddle_width, paddle_height], 0)
+    pygame.draw.circle(screen, ball_color, [int(ball_x), int(ball_y)], ball_radius, 0)
+    pygame.draw.rect(screen, paddle_color, [paddle_x, paddle_y, paddle_width, paddle_height], 0)
     # update the entire display
     pygame.display.update()
 
