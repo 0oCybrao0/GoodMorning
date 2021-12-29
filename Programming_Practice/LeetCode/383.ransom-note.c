@@ -1,3 +1,10 @@
+/*
+ * @lc app=leetcode id=383 lang=c
+ *
+ * [383] Ransom Note
+ */
+
+// @lc code=start
 bool canConstruct(char* ransomNote, char* magazine) {
     int alpha[26] = {0};                      // set alphabet amount array
     int ransomNote_len = strlen(ransomNote);  // set ransomNote's strlen
@@ -16,3 +23,4 @@ bool canConstruct(char* ransomNote, char* magazine) {
     }
     return true;
 }
+// @lc code=end

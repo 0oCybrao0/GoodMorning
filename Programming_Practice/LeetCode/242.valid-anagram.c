@@ -1,3 +1,10 @@
+/*
+ * @lc app=leetcode id=242 lang=c
+ *
+ * [242] Valid Anagram
+ */
+
+// @lc code=start
 bool isAnagram(char* s, char* t) {
     int alpha[26] = {0};           // set alphabet amount array
     if (strlen(s) != strlen(t)) {  // return false if it's length isn't the same
@@ -13,3 +20,4 @@ bool isAnagram(char* s, char* t) {
             return false;
     return true;
 }
+// @lc code=end
