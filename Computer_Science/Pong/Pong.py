@@ -46,6 +46,7 @@ ball_radius = 8
 ball_color = [255, 0, 0]
 ball_speed_x = 4
 ball_speed_y = 5
+ball_speed_boost = 1.1
 
 # the paddle's variables
 paddle1_x = 20
@@ -60,9 +61,8 @@ paddle_speed = 5
 
 pygame.font.init()
 myfont = pygame.font.SysFont("Arial", 15)
-score1 = 10
+score1 = 0
 score2 = 0
-ball_speed_boost = 1.1
 
 # allows milliseconds for holding the key
 pygame.key.set_repeat(10, 10)
@@ -159,7 +159,7 @@ while end:
         # check if you've exited the game
         if event.type == pygame.QUIT:
             end = False
-
+    end_game_label = None
     myfont = pygame.font.SysFont("Arial", 20)
     if score1 == 11:
         end_game_label = myfont.render("Left side win!!", 1, pygame.color.THECOLORS['white'])

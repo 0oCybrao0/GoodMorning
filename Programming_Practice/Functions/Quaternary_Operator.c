@@ -1,9 +1,8 @@
 #include <stdio.h>
 
 int main(void) {
-    int a = 0;
-    int b = 0;
-    char notation = ' ';
+    int a, b;
+    char notation;
     scanf("%d %c %d", &a, &notation, &b);
 
     switch (notation) {
@@ -21,7 +20,7 @@ int main(void) {
                 printf("Denominator can't be 0.");
                 break;
             } else {
-                printf("%d / %d = %d", a, b, a / b);
+                printf("%d / %d = %.4lf", a, b, (double)a / (double)b);
                 break;
             }
         default:
