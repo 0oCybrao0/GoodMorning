@@ -12,15 +12,9 @@ int main() {
     int outputLen = (double)strlen(input) * log(base);
     int *output = (int *)calloc(outputLen + 1, sizeof(int));
     output[0] = input[0] - head;
-    output[1] += output[0] / 10;
-    output[0] %= 10;
     for (int i = 1; i < inputLen; i++) {
         for (int j = 0; j < outputLen; j++) {
             output[j] *= base;
-        }
-        for (int j = 0; j < outputLen; j++) {
-            output[j + 1] += output[j] / 10;
-            output[j] %= 10;
         }
         output[0] += input[i] - head;
         for (int j = 0; j < outputLen; j++) {
@@ -33,7 +27,7 @@ int main() {
         if (output[i] > 0 && output[i] < 10) {
             flag = 1;
         }
-        if (flag == 1) {
+        if (flag) {
             printf("%d", output[i]);
         }
     }
