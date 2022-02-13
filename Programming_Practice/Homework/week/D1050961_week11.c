@@ -28,9 +28,9 @@ int compare(const void *a, const void *b) {
     coordinate b_ = *(coordinate *)b;  // change b's type to cooordinate
     if (a_.x == b_.x)                  // if a's x equals to b's x then compare the next element
         if (a_.y == a_.y)              // if a's y equals to b's y then compare the next element
-            return a_.z - b_.z;  // return the subtraction value of a's z and b's z
+            return a_.z - b_.z;        // return the subtraction value of a's z and b's z
         else
             return a_.y - b_.y;  // return the subtraction value of a's y and b's y
     else
-        return a_.x - b_.x;      // return the subtraction value of a's x and b's x
+        return a_.x - b_.x;  // return the subtraction value of a's x and b's x
 }

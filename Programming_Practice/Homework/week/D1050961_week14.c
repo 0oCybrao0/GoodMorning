@@ -5,6 +5,7 @@
 void reverse(int *a, int *b) {  // put element to output
     *b = *a;
 }
+
 /*
 void reverse(int **input, int **output, int row, int column) {
     for (int i = 0; i < column; i++) {
@@ -34,7 +35,6 @@ int main() {
             scanf("%d", &input[i][j]);
         }
     }
-
     for (int i = 0; i < row; i++) {  // reverse input array to output array
         for (int j = 0; j < column; j++) {
             reverse(&input[i][j], &output[j][i]);  // calling function one by one

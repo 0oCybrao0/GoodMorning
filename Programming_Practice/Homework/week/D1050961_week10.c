@@ -15,7 +15,7 @@ int main(void) {
         scanf("%d %d", &start, &end);  // input range
         if (start > end)
             swap(&start, &end);  // swap if the second input is bigger than the first one
-        while(1) {
+        while (1) {
             if (fib[count_fibonacci - 1] <= end) {  // create the next number of fib if the maxium of the last element is smaller or equal to end
                 fibonacci(fib);
             } else
