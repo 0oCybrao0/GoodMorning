@@ -14,7 +14,7 @@ int main() {
     }
     int changes = 0;
     for (int i = 0; i < times - 1; i++) {
-        for (int j = 0; j < times - 1; j++) {
+        for (int j = 0; j < times - 1 - i; j++) {
             if (train[j].number >= train[j + 1].number) {
                 if (train[j].number == train[j + 1].number && train[j].color > train[j + 1].color) {
                     continue;
