@@ -1,6 +1,5 @@
 #include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <termios.h>
 #include <time.h>
@@ -13,7 +12,7 @@ int kbhit(void);
 
 int main() {
     int playerPos = 6;
-    int sleeptime = 100000;
+    int sleeptime = 200000;
     int jump_time = 0;
     int score = 0;
     int delay = 0;

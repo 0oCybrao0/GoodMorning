@@ -20,9 +20,9 @@ bool three_of_a_kind(int *);
 bool two_pairs(int *);
 bool one_pair(int *);
 
-const char *suits[SUITS] =
-    {"Spades", "Hearts", "Diamonds", "Clubs"};
-const char *faces[FACES] =
+const char *suits[SUITS] =  // suits name
+    {"Clubs", "Diamonds", "Hearts", "Spades"};
+const char *faces[FACES] =  // faces name
     {"Deuce", "Three", "Four",
      "Five", "Six", "Seven", "Eight",
      "Nine", "Ten", "Jack", "Queen", "King", "Ace"};
@@ -30,25 +30,25 @@ const char *faces[FACES] =
 int main() {
     cards deck[52] = {0};
     cards hand[5] = {0};
-    for (int i = 0; i < SUITS; i++) {
+    for (int i = 0; i < SUITS; i++) {  // input card's type into deck
         for (int j = 0; j < FACES; j++) {
             deck[i * 13 + j].suit = i;
             deck[i * 13 + j].face = j;
         }
     }
     shuffle(deck);
-    qsort(deck, 5, sizeof(cards), compare);
-    for (int i = 0; i < 5; i++) {
+    qsort(deck, HAND, sizeof(cards), compare);  // sort hand deck
+    for (int i = 0; i < HAND; i++) {
         printf("%s of %s\n", faces[deck[i].face], suits[deck[i].suit]);
-        hand[i] = deck[i];
+        hand[i] = deck[i];  // put deck into hand
     }
     judge(hand);
 }
 
 void shuffle(cards *deck) {
-    srand(time(NULL) + getpid());
+    srand(time(NULL) + getpid());  // random than random
     for (int i = 0; i < CARDS; i++) {
-        swap(&deck[i], &deck[rand() % CARDS]);
+        swap(&deck[i], &deck[rand() % CARDS]);  // swap cards with random position
     }
 }
 
@@ -58,7 +58,7 @@ void swap(cards *a, cards *b) {
     *b = temp;
 }
 
-int compare(const void *a, const void *b) {
+int compare(const void *a, const void *b) {  // qsort's compare function
     cards a_ = *(cards *)a;
     cards b_ = *(cards *)b;
     if (a_.face == b_.face) {
@@ -69,18 +69,14 @@ int compare(const void *a, const void *b) {
 
 void judge(cards *hand) {
     int frequency[13] = {0};
-    for (int i = 0; i < HAND; i++) {
+    for (int i = 0; i < HAND; i++) {  // find face frequency
         frequency[hand[i].face]++;
     }
-    if (!four_of_a_kind(frequency)) {
-        if (!three_of_a_kind(frequency)) {
-            if (!two_pairs(frequency)) {
-                if (!one_pair(frequency)) {
-                    printf("You have high cards\n");
-                }
-            }
-        }
-    }
+    if (!four_of_a_kind(frequency))
+        if (!three_of_a_kind(frequency))
+            if (!two_pairs(frequency))
+                if (!one_pair(frequency))
+                    ;  // printf("You have high cards\n")
 }
 
 bool four_of_a_kind(int *frequency) {
