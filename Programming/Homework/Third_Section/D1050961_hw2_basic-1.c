@@ -14,12 +14,12 @@ Solution* solutionCreate(int* nums, int numsSize) {
     return obj;
 }
 
-int* solutionReset(Solution* obj, int* returnSize) {
+int* solutionReset(Solution* obj, int* returnSize) {  // return reset array
     *returnSize = obj->size;
     return obj->reset;
 }
 
-void swap(int* a, int* b) {
+void swap(int* a, int* b) {  // swap two element
     int temp = *a;
     *a = *b;
     *b = temp;
@@ -27,7 +27,7 @@ void swap(int* a, int* b) {
 
 int* solutionShuffle(Solution* obj, int* returnSize) {
     *returnSize = obj->size;
-    for (int i = 0; i < *returnSize; i++) {  // random swap to shuffle deck
+    for (int i = 0; i < obj->size; i++) {  // random swap to shuffle deck
         swap(&obj->deck[i], &obj->deck[rand() % *returnSize]);
     }
     return obj->deck;

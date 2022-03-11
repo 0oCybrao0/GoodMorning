@@ -1,9 +1,5 @@
 // Fig. 10.3: fig10_03.c
 // Card shuffling and dealing program using structures
-/*
-把原本的random交換改成抽取剩餘數目範圍內的數字到陣列裡面
-雖然這樣做起來時間複雜度還是N就是了，而且感覺原本的比較有洗牌的感覺...?
-*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -22,7 +18,7 @@ typedef struct card Card;  // new type name for struct card
 // prototypes
 void fillDeck(Card *const wDeck, const char *wFace[],
               const char *wSuit[]);
-void shuffle(Card *const wDeck);
+void Fisher_Yates_Shuffle(Card *const wDeck);
 void deal(const Card *const wDeck);
 
 int main(void) {
@@ -39,7 +35,7 @@ int main(void) {
     srand(time(NULL));  // randomize
 
     fillDeck(deck, face, suit);  // load the deck with Cards
-    shuffle(deck);               // put Cards in random order
+    Fisher_Yates_Shuffle(deck);  // put Cards in random order
     deal(deck);                  // deal all 52 Cards
 }
 
@@ -53,11 +49,11 @@ void fillDeck(Card *const wDeck, const char *wFace[],
     }
 }
 
-// shuffle cards
-void shuffle(Card *const wDeck) {
+// Shuffle cards
+void Fisher_Yates_Shuffle(Card *const wDeck) {
     // loop through wDeck randomly swapping Cards
     for (size_t i = 0; i < CARDS; ++i) {
-        size_t j = rand() % (CARDS - i) + i;  // Fisher–Yates shuffle part
+        size_t j = rand() % (CARDS - i) + i;  // Shuffle part
         Card temp = wDeck[i];
         wDeck[i] = wDeck[j];
         wDeck[j] = temp;
