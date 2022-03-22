@@ -8,12 +8,10 @@
 #define FACES 13
 
 // card structure definition
-struct card {
+typedef struct {
     const char *face;  // define pointer face
     const char *suit;  // define pointer suit
-};
-
-typedef struct card Card;  // new type name for struct card
+} card;
 
 // prototypes
 void fillDeck(Card *const wDeck, const char *wFace[],

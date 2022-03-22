@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <termios.h>
 #include <time.h>
@@ -28,7 +29,7 @@ int main() {
         changemode(1);
         while (!kbhit()) {
             printf("\n\tScore: %d\n", score);
-            if (!(score++ % 10)) {
+            if (!(score++ % 8)) {
                 floor1[CANVAS - (rand() % 5 + 1)] = 'X';
             }
             if (current_floor == 1 || (current_floor == 2 && delay == 1)) {
@@ -62,7 +63,7 @@ int main() {
             usleep(sleeptime);
             system("clear");
         }
-        if (getchar() == ' ') {
+        if (getc(stdin) == ' ') {
             current_floor = 2;
         }
         changemode(0);

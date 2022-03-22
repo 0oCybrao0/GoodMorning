@@ -28,7 +28,7 @@ void swap(int* a, int* b) {  // swap two element
 int* solutionShuffle(Solution* obj, int* returnSize) {
     *returnSize = obj->size;
     for (int i = 0; i < obj->size; i++) {  // random swap to shuffle deck
-        swap(&obj->deck[i], &obj->deck[rand() % *returnSize]);
+        swap(&obj->deck[i], &obj->deck[rand() % obj->size]);
     }
     return obj->deck;
 }
