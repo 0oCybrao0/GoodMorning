@@ -14,13 +14,14 @@ int main(void) {
     }
     while (1) {
         char mode_choose[1024] = {0};
+        // rewind(catalog);
         printf("Mode 1 for output friend list\n");
         printf("Mode 2 for add new friend to list\n");
         printf("Mode: ");
         scanf("%s", mode_choose);  // input mode
+        int temp = 0;
         int mode = atoi(mode_choose);
         if (mode == 1) {
-            rewind(catalog);
             printf("================================================================\n");
             while (fscanf(catalog, "%s%s%s", name, phone, birthday) != EOF) {  // print the whole catalog
                 printf("%s's phone number: %s\n", name, phone);
@@ -28,7 +29,16 @@ int main(void) {
                 printf("================================================================\n");
             }
         } else if (mode == 2) {
+            rewind(catalog);
+
+            temp = ftell(catalog);
+            printf("%d\n", temp);
+
             fseek(catalog, 0, SEEK_END);
+
+            temp = ftell(catalog);
+            printf("%d\n", temp);
+
             printf("Name: ");
             scanf("%s", name);
             printf("Phone number: ");

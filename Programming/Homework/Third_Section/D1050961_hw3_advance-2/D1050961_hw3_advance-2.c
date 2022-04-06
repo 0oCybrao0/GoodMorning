@@ -4,6 +4,10 @@
 #include <string.h>
 #include <time.h>
 #define length 5
+#define BLACK "\x1b[%d;%dm", 30, 100
+#define YELLOW "\x1b[%d;%dm", 30, 43
+#define GREEN "\x1b[%d;%dm", 30, 42
+#define RESETCOLOR "\x1b[0m"
 FILE *word;
 FILE *history;
 typedef struct {
@@ -122,6 +126,28 @@ void check_words(type *words) {
     scanf("%s", input);
     printf("Input your result: ");  // the result after you type in wordle
     scanf("%s", result);
+    printf("Your word is : ");
+    for (int i = 0; i < length; ++i) {
+        switch (result[i]) {
+            case 'b': {
+                printf(BLACK);
+                printf("[%c]", input[i]);
+                break;
+            }
+            case 'y': {
+                printf(YELLOW);
+                printf("[%c]", input[i]);
+                break;
+            }
+            case 'g': {
+                printf(GREEN);
+                printf("[%c]", input[i]);
+                break;
+            }
+        }
+    }
+    printf(RESETCOLOR);
+    printf("\n");
 
     for (int i = 0; i < length; i++) {
         input[i] = tolower(input[i]);    // turn input into lower case
@@ -145,12 +171,23 @@ void check_words(type *words) {
             temp_alphabet[words->data[i][j] - 'a']++;  // count frequency of every words
         }
         for (int j = 0; j < 26; j++) {
-            if (alphabet[j] == 1) {
+            if (alphabet[j] == 1) {                    // if the frequency of the alphabet is 1
                 if (alphabet[j] < temp_alphabet[j]) {  // when temp's frequency is greater than the word's
-                    continue;
-                } else if (alphabet[j] != temp_alphabet[j]) {
-                    strcpy(words->data[i], "");  // make it a void string
+                    int temp_wrong = 0;
+                    for (int k = 0; k < length; k++) {
+                        if (result[k] == 'B' && input[k] == j + 'a') {  // if the result is B and the input is the same
+                            temp_wrong++;
+                        }
+                    }
+                    if (temp_wrong > 0) {
+                        if (alphabet[j] != temp_alphabet[j]) {  // if the frequency is not the same
+                            strcpy(words->data[i], "");         // make it a void string
+                        }
+                    }
+                } else if (alphabet[j] != temp_alphabet[j]) {  // when temp's frequency is less than the word's
+                    strcpy(words->data[i], "");                // make it a void string
                 }
+                continue;
             }
             if (alphabet[j] > 1) {
                 if (alphabet[j] > temp_alphabet[j]) {  // judge if the frequency is coorrect

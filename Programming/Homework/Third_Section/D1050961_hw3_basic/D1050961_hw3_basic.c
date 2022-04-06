@@ -3,25 +3,29 @@
 #include <stdlib.h>
 #include <string.h>
 #define length 5
+#define BLACK "\x1b[%d;%dm", 30, 100
+#define YELLOW "\x1b[%d;%dm", 30, 43
+#define GREEN "\x1b[%d;%dm", 30, 42
+#define RESETCOLOR "\x1b[0m"
 FILE *word;
 FILE *history;
 typedef struct {
     int count;
     char **data;
 } type;
-void scan_word(type *);
-void scan_history(type *);
-void delete_words(type *, type *);
-void print_words(type *);
-void check_words(type *);
+void scan_word(type *);             // scan word from file
+void scan_history(type *);          // scan history from file
+void delete_words(type *, type *);  // delete words from history
+void print_words(type *);           // print words
+void check_words(type *);           // check words
 
 int main() {
-    type *words = (type *)malloc(sizeof(type));
-    type *histories = (type *)malloc(sizeof(type));
-    scan_word(words);
-    scan_history(histories);
-    delete_words(words, histories);  // delete words from history
-    print_words(words);
+    type *words = (type *)malloc(sizeof(type));      // words
+    type *histories = (type *)malloc(sizeof(type));  // histories
+    scan_word(words);                                // scan word from file
+    scan_history(histories);                         // scan history from file
+    delete_words(words, histories);                  // delete words from history
+    print_words(words);                              // print words
 }
 
 void scan_word(type *words) {
@@ -35,7 +39,7 @@ void scan_word(type *words) {
     }
 
     words->data = (char **)malloc(words->count * sizeof(char *));  // malloc words data array
-    for (int i = 0; i < words->count; i++) {
+    for (int i = 0; i < words->count; i++) {                       // malloc words data array
         words->data[i] = (char *)malloc((length + 1) * sizeof(char));
     }
 
@@ -52,15 +56,15 @@ void scan_history(type *histories) {
     } else {
         printf("history.txt opened successfully\n");
     }
-    fscanf(history, "%*s%*s%*s");  // ignore the first line
-    while (fscanf(history, "%*s%*s%*s") != EOF) {
+    fscanf(history, "%*s%*s%*s");                  // ignore the first line
+    while (fscanf(history, "%*s%*s%*s") != EOF) {  // count histories
         histories->count++;
     }
 
     rewind(history);  // rewind back to beginning
 
     histories->data = (char **)malloc(histories->count * sizeof(char *));  // malloc history's data
-    for (int i = 0; i < histories->count; i++) {
+    for (int i = 0; i < histories->count; i++) {                           // malloc history's data
         histories->data[i] = (char *)malloc((length + 1) * sizeof(char));
     }
 
@@ -76,13 +80,13 @@ void delete_words(type *words, type *histories) {
             histories->data[i][j] = tolower(histories->data[i][j]);  // turn history data to lower case
         }
         for (int j = 0; j < words->count; j++) {
-            if (strcmp(histories->data[i], words->data[j]) == 0) {
-                strcpy(words->data[j], "");  // make it a void string
+            if (strcmp(histories->data[i], words->data[j]) == 0) {  // compare history data with words data
+                strcpy(words->data[j], "");                         // make it a void string
                 break;
             }
         }
     }
-    free(histories->data);
+    free(histories->data);  // free history's data
 }
 
 void print_words(type *words) {
@@ -105,6 +109,28 @@ void check_words(type *words) {
     scanf("%s", input);
     printf("Input your result: ");  // the result after you type in wordle
     scanf("%s", result);
+    printf("Your word is : ");
+    for (int i = 0; i < length; ++i) {
+        switch (result[i]) {
+            case 'b': {
+                printf(BLACK);
+                printf("[%c]", input[i]);
+                break;
+            }
+            case 'y': {
+                printf(YELLOW);
+                printf("[%c]", input[i]);
+                break;
+            }
+            case 'g': {
+                printf(GREEN);
+                printf("[%c]", input[i]);
+                break;
+            }
+        }
+    }
+    printf(RESETCOLOR);
+    printf("\n");
 
     for (int i = 0; i < length; i++) {
         input[i] = tolower(input[i]);    // turn input into lower case
@@ -118,25 +144,36 @@ void check_words(type *words) {
     }
 
     for (int i = 0; i < length; i++) {
-        if (result[i] == 'G' || result[i] == 'Y') {
-            alphabet[input[i] - 'a']++;  // count frequency of G case and Y case
+        if (result[i] == 'G' || result[i] == 'Y') {  // if the result is G or Y
+            alphabet[input[i] - 'a']++;              // count frequency of G case and Y case
         }
     }
-    for (int i = 0; i < words->count; i++) {
+    for (int i = 0; i < words->count; i++) {  // check if the word is in the word array
         int temp_alphabet[27] = {0};
         for (int j = 0; j < length; j++) {
             temp_alphabet[words->data[i][j] - 'a']++;  // count frequency of every words
         }
         for (int j = 0; j < 26; j++) {
-            if (alphabet[j] == 1) {
+            if (alphabet[j] == 1) {                    // if the frequency of the word is 1
                 if (alphabet[j] < temp_alphabet[j]) {  // when temp's frequency is greater than the word's
-                    continue;
-                } else if (alphabet[j] != temp_alphabet[j]) {
-                    strcpy(words->data[i], "");  // make it a void string
+                    int temp_wrong = 0;
+                    for (int k = 0; k < length; k++) {
+                        if (result[k] == 'B' && input[k] == j + 'a') {  // if the result is B and the input is the same
+                            temp_wrong++;
+                        }
+                    }
+                    if (temp_wrong > 0) {
+                        if (alphabet[j] != temp_alphabet[j]) {  // if the frequency of the word is not the same
+                            strcpy(words->data[i], "");         // make it a void string
+                        }
+                    }
+                } else if (alphabet[j] != temp_alphabet[j]) {  // when temp's frequency is less than the word's
+                    strcpy(words->data[i], "");                // make it a void string
                 }
+                continue;
             }
-            if (alphabet[j] > 1) {
-                if (alphabet[j] > temp_alphabet[j]) {  // judge if the frequency is coorrect
+            if (alphabet[j] > 1) {                     // if the frequency of the word is greater than 1
+                if (alphabet[j] > temp_alphabet[j]) {  // judge if the frequency is correct
                     strcpy(words->data[i], "");        // make it a void string
                 }
             }
